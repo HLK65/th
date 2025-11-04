@@ -53,6 +53,12 @@
             scroll-margin-top: var(--anchor-offset);
         }
 
+        /* Prevent horizontal scroll on small screens */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             padding-top: var(--anchor-offset);
         }
@@ -84,8 +90,10 @@
         background-position-x: 50%;
         background-position-y: 50%;
         min-height:75vh;">
-    <img class="img-fluid mt-5 ms-5" src="assets/img/Hansen.png" alt="Hansen Consulting logo">
-    <p class="mt-3 ms-5">Business Consulting lorem ipsum</p>
+    <div class="ps-3 ps-sm-5">
+        <img class="img-fluid mt-5" src="assets/img/hansen.png" alt="Hansen Consulting logo">
+        <p class="mt-3">Business Consulting lorem ipsum</p>
+    </div>
 </div>
 <div class="container-fluid px-0"
      id="contact"
