@@ -19,7 +19,7 @@
             document.documentElement.style.setProperty('--anchor-offset', offset + 'px');
 
             // Init ScrollSpy
-            const spy = new bootstrap.ScrollSpy(document.body, { target: targetSel, offset });
+            const spy = new bootstrap.ScrollSpy(document.body, {target: targetSel, offset});
 
             // Refresh after a tick to account for images/fonts
             setTimeout(() => spy.refresh(), 0);
@@ -40,7 +40,7 @@
             };
 
             forceTopActive();
-            window.addEventListener('scroll', forceTopActive, { passive: true });
+            window.addEventListener('scroll', forceTopActive, {passive: true});
         });
     </script>
     <style>
@@ -58,11 +58,7 @@
         }
     </style>
 </head>
-<body
-        class="bg-dark text-light">
-
-<!--TODO Bootstrap Scrollspy-->
-<!--TODO Content underneath navbar-->
+<body class="bg-dark text-light">
 
 <nav class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
