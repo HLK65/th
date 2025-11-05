@@ -2,6 +2,7 @@
 :root {
   /* Dynamic header offset for fixed navbar; updated by JS on load/resize */
   --header-offset: 66px;
+  --footer-offset: 73px;
   /* Contact email domain text (used for display-only obfuscation) */
   --mydom: "tom-hansen.com";
 }
@@ -50,4 +51,16 @@ body {
 /* Navbar brand icon */
 .brand-icon {
   width: 40px;
+}
+
+/* Full viewport helper for pages like impressum */
+.full-viewport {
+  /* Use calc to subtract the fixed header height so content fits below the navbar */
+  min-height: calc(100vh - var(--header-offset) - var(--footer-offset));
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center vertically if content small */
+  padding: 2rem; /* keep some inner spacing */
+  box-sizing: border-box;
+  overflow-y: auto; /* allow scrolling if content is taller than available space */
 }
