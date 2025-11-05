@@ -1,0 +1,53 @@
+/* Custom site styles */
+:root {
+  /* Dynamic header offset for fixed navbar; updated by JS on load/resize */
+  --header-offset: 66px;
+  /* Contact email domain text (used for display-only obfuscation) */
+  --mydom: "tom-hansen.com";
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+}
+
+body {
+  position: relative; /* Required when body is the ScrollSpy scroll container */
+  padding-top: var(--header-offset); /* Keep content below the fixed navbar */
+}
+
+/* Ensure anchor jumps account for fixed header height */
+[id] {
+  scroll-margin-top: var(--header-offset);
+}
+
+/* Email obfuscation helpers for the visible text */
+.at:before {
+  content: "@";
+}
+
+.domain:after {
+  content: var(--mydom);
+}
+
+/* Hero sections */
+.hero-home {
+  background-image: url('../img/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  min-height: 75vh;
+}
+
+.hero-contact {
+  background-image: url('../img/bg-contact.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  min-height: 50vh;
+}
+
+/* Navbar brand icon */
+.brand-icon {
+  width: 40px;
+}
