@@ -1,3 +1,5 @@
+'use strict';
+
 // Custom site scripts: dynamic header offset + section-visibility nav activation + email obfuscation handler
 (function () {
     function debounce(fn, ms) {
@@ -112,28 +114,9 @@
         });
     }
 
-    // Email obfuscation: convert mailto:contactattomminushansenpunktcom to real address on click
-    function initEmailDeobfuscation() {
-        const anchors = document.querySelectorAll('a[href^="mailto:contactat"], a[data-email-obfuscated="true"]');
-        anchors.forEach(function (a) {
-            a.addEventListener('click', function () {
-                try {
-                    // Replace the pieces once per click just before navigation
-                    const newHref = a.getAttribute('href')
-                        .replace(/at/, '&#64;')
-                        .replace(/minus/, '&#45;')
-                        .replace(/punkt/, '&#46;');
-                    a.setAttribute('href', newHref);
-                } catch (e) {
-                    // Ignore any errors; allow default navigation
-                }
-            }, {once: true});
-        });
-    }
 
     // Init on load
     window.addEventListener('load', function () {
-        initEmailDeobfuscation();
         initNavClicks();
 
         // compute header offset and set CSS var
@@ -149,5 +132,57 @@
             refreshActiveSection();
         }, 150));
     });
+
+
+    // Email obfuscation handler
+    document.addEventListener('DOMContentLoaded', function ()
+    {
+        const listener = new Listener();
+
+        listener.decode = function ()
+        {
+            const email = document.getElementById('text-interaction').firstChild;
+
+            email.nodeValue = email.nodeValue
+                .replace('contact me', 'contact')
+                .replace('via', '@')
+                .replaceAll(' ', '')
+                .replace('mail', 'tom-hansen.com');
+            document.getElementById('text-interaction').href = 'mailto:' + email.nodeValue;
+        }
+
+        listener.on();
+    });
+
+
+    // Listener
+
+    function Listener ()
+    {
+    }
+
+    Listener.prototype.decode = null;
+
+    Listener.prototype.on = function ()
+    {
+        this.listener = this.__onInteraction.bind(this);
+
+        document.addEventListener('mouseenter', this.listener, true);
+        document.addEventListener('focus', this.listener, true);
+    }
+
+    Listener.prototype.off = function ()
+    {
+        document.removeEventListener('mouseenter', this.listener, true);
+        document.removeEventListener('focus', this.listener, true);
+
+        delete this.listener;
+    }
+
+    Listener.prototype.__onInteraction = function ()
+    {
+        this.off();
+        this.decode();
+    }
 
 })();
